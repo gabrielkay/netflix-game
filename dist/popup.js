@@ -145,5 +145,7 @@ window.onload = function () {
     document.getElementById("button1").onclick = newWord;
     document.getElementById("button2").onclick = newWordChug;
     document.getElementById("reset").onclick = clearLocalStorage;
+    document.getElementById("start").onclick = start;
+    document.getElementById("stop").onclick = stop;
 
 }
