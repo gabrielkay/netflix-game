@@ -114,18 +114,6 @@ function clearLocalStorage(){
     //  })
 }
 
-function start(){
-  chrome.storage.sync.set({"start_now": "true"}, function() {
-    console.log('Starting');
-  });
-}
-
-function stop(){
-  chrome.storage.sync.set({"start_now": ""}, function() {
-    console.log("Stopping");
-  })
-}
-
 window.onload = function () {
     console.log('foo');
     chrome.storage.sync.get(["drink_storage"], function(result) {
@@ -145,7 +133,5 @@ window.onload = function () {
     document.getElementById("button1").onclick = newWord;
     document.getElementById("button2").onclick = newWordChug;
     document.getElementById("reset").onclick = clearLocalStorage;
-    document.getElementById("start").onclick = start;
-    document.getElementById("stop").onclick = stop;
 
 }
