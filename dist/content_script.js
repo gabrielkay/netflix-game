@@ -95,48 +95,52 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
         var drink = ['${drink.join("','")}'];
         var chug = ['${chug.join("','")}'];
         console.log("drink in code: " + drink);
-        
+                  
         if (chug.some(w => text.toLowerCase().includes(w.toLowerCase()))) {
-          console.log("CHUG");
-          var word = "";
-          word = chug.find(e => text.toLowerCase().includes(e.toLowerCase()));
-    
-          var drink_banner = document.createElement("div");
-          var drink_text = document.createElement("div");
-          drink_text.innerHTML = word.toUpperCase() + " - CHUG!";
-          var drink_gif = document.createElement("img");
-          drink_gif.setAttribute("src", "https://media2.giphy.com/media/WSmRh8BcJWQ9aYiing/giphy.gif");
-          drink_gif.setAttribute("height", "100%");
-          drink_gif.setAttribute("width", "100%");
-          drink_banner.appendChild(drink_text);
-          drink_banner.appendChild(drink_gif);
-    
-          drink_banner.style = "top:5%;right:3%;position:absolute;z-index:99999; padding: 20px; color:white; font-size: 40px; -webkit-text-stroke: 1.5px black; height:20%; width:20%; background: none; border: none; text-align: center;"
-          document.body.appendChild(drink_banner);
-          setTimeout(function () {
-            drink_banner.remove();
-        }, 10000);
+          if (chug !== undefined || chug.length != 0) {
+            console.log("CHUG: " + chug);
+            var word = "";
+            word = chug.find(e => text.toLowerCase().includes(e.toLowerCase()));
+      
+            var drink_banner = document.createElement("div");
+            var drink_text = document.createElement("div");
+            drink_text.innerHTML = word.toUpperCase() + " - CHUG!";
+            var drink_gif = document.createElement("img");
+            drink_gif.setAttribute("src", "https://media2.giphy.com/media/WSmRh8BcJWQ9aYiing/giphy.gif");
+            drink_gif.setAttribute("height", "100%");
+            drink_gif.setAttribute("width", "100%");
+            drink_banner.appendChild(drink_text);
+            drink_banner.appendChild(drink_gif);
+      
+            drink_banner.style = "top:5%;right:3%;position:absolute;z-index:99999; padding: 20px; color:white; font-size: 42px; font-weight: bold; -webkit-text-stroke: 1.9px black; height:20%; width:20%; background: none; border: none; text-align: center;"
+            document.body.appendChild(drink_banner);
+            setTimeout(function () {
+              drink_banner.remove();
+            }, 10000);
+          }
         }
         else if (drink.some(w => text.toLowerCase().includes(w.toLowerCase()))) {
-          console.log("DRINK");
-          var word = "";
-          word = drink.find(e => text.toLowerCase().includes(e.toLowerCase()));
-    
-          var drink_banner = document.createElement("div");
-          var drink_text = document.createElement("div");
-          drink_text.innerHTML = word.toUpperCase() + "!";
-          var drink_gif = document.createElement("img");
-          drink_gif.setAttribute("src", "https://media1.giphy.com/media/QPbdJCZJO0WvdrfV8L/giphy.gif");
-          drink_gif.setAttribute("height", "100%");
-          drink_gif.setAttribute("width", "100%");
-          drink_banner.appendChild(drink_text);
-          drink_banner.appendChild(drink_gif);
-    
-          drink_banner.style = "top:5%;right:3%;position:absolute;z-index:99999; padding: 20px; color:white; font-size: 40px; -webkit-text-stroke: 1.5px black; height:20%; width:20%; background: none; border: none; text-align: center;"
-          document.body.appendChild(drink_banner);
-          setTimeout(function () {
-            drink_banner.remove();
-        }, 5000);
+          if (drink !== undefined || drink.length != 0) {
+            console.log("DRINK");
+            var word = "";
+            word = drink.find(e => text.toLowerCase().includes(e.toLowerCase()));
+      
+            var drink_banner = document.createElement("div");
+            var drink_text = document.createElement("div");
+            drink_text.innerHTML = word.toUpperCase() + "!";
+            var drink_gif = document.createElement("img");
+            drink_gif.setAttribute("src", "https://media1.giphy.com/media/QPbdJCZJO0WvdrfV8L/giphy.gif");
+            drink_gif.setAttribute("height", "100%");
+            drink_gif.setAttribute("width", "100%");
+            drink_banner.appendChild(drink_text);
+            drink_banner.appendChild(drink_gif);
+      
+            drink_banner.style = "top:5%;right:3%;position:absolute;z-index:99999; padding: 20px; color:white; font-size: 42px; font-weight: bold; -webkit-text-stroke: 1.9px black; height:20%; width:20%; background: none; border: none; text-align: center;"
+            document.body.appendChild(drink_banner);
+            setTimeout(function () {
+              drink_banner.remove();
+            }, 5000);
+          }
         }
       }
     
