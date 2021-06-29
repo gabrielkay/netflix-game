@@ -9,7 +9,7 @@ document.head.insertBefore(styleElem, document.head.firstChild);
 
 const scriptElem = document.createElement('script');
 
-var drink = ["sample","two"];
+var drink = [];
 var chug = [];
 
 
@@ -240,22 +240,6 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
         // NOTE: We don't call renderAndReconcile here, caller should do it to avoid recursive loop bug
       }
     
-      function enableDownloadButton() {
-        const downloadButtonElem = document.getElementById(DOWNLOAD_BUTTON_ID);
-        if (downloadButtonElem) {
-          downloadButtonElem.style.color = 'black';
-          downloadButtonElem.disabled = false;
-        }
-      }
-    
-      function disableDownloadButton() {
-        const downloadButtonElem = document.getElementById(DOWNLOAD_BUTTON_ID);
-        if (downloadButtonElem) {
-          downloadButtonElem.style.color = 'grey';
-          downloadButtonElem.disabled = true;
-        }
-      }
-    
       function downloadSRT() {
         function formatTime(t) {
           const date = new Date(0, 0, 0, 0, 0, 0, t*1000);
@@ -308,25 +292,6 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
         document.body.removeChild(tmpElem);
       }
     
-      function updateToggleDisplay() {
-        const buttomElem = document.getElementById(TOGGLE_DISPLAY_BUTTON_ID);
-        if (buttomElem) {
-          if (showSubsState) {
-            buttomElem.textContent = 'Hide Subs [S]';
-          } else {
-            buttomElem.textContent = 'Show Subs [S]';
-          }
-        }
-        const subsElem = document.getElementById(CUSTOM_SUBS_ELEM_ID);
-        if (subsElem) {
-          if (showSubsState) {
-            subsElem.style.visibility = 'visible';
-          } else {
-            subsElem.style.visibility = 'hidden';
-          }
-        }
-      }
-    
       function renderAndReconcile() {
         function addSubsList(tracks) {
           const toggleDisplayButtonElem = document.createElement('button');
@@ -335,7 +300,6 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
           toggleDisplayButtonElem.addEventListener('click', function(e) {
             e.preventDefault();
             showSubsState = !showSubsState;
-            updateToggleDisplay();
           }, false);
     
           const selectElem = document.createElement('select');
@@ -358,34 +322,7 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
           }
           if (firstCCTrackId) {
             selectElem.value = firstCCTrackId;
-          }
-    
-          const downloadButtonElem = document.createElement('button');
-          downloadButtonElem.id = DOWNLOAD_BUTTON_ID;
-          downloadButtonElem.textContent = 'Download SRT';
-          downloadButtonElem.style.cssText = 'margin: 5px; border: none';
-          downloadButtonElem.addEventListener('click', function(e) {
-            e.preventDefault();
-            // console.log('download click');
-            downloadSRT();
-          }, false);
-    
-          const panelElem = document.createElement('div');
-          panelElem.style.cssText = 'position: absolute; z-index: 1000; top: 0; right: 0; font-size: 16px; color: white';
-          panelElem.appendChild(toggleDisplayButtonElem);
-          panelElem.appendChild(selectElem);
-          panelElem.appendChild(downloadButtonElem);
-    
-          const containerElem = document.createElement('div');
-          containerElem.id = SUBS_LIST_ELEM_ID;
-          containerElem.style.cssText = 'width: 100%; height: 100%; position: absolute; top: 0; right: 0; bottom: 0; left: 0';
-          containerElem.appendChild(panelElem);
-    
-          document.body.appendChild(containerElem);
-    
-          updateToggleDisplay();
-          disableDownloadButton();
-    
+          }        
           handleSubsListSetOrChange(selectElem);
         }
     
@@ -406,10 +343,6 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
           videoElem.appendChild(trackElem);
           trackElem.track.mode = 'hidden'; // this can only be set after appending
     
-          trackElem.addEventListener('load', function() {
-            enableDownloadButton();
-          }, false);
-    
           const customSubsElem = document.createElement('div');
           customSubsElem.id = CUSTOM_SUBS_ELEM_ID;
           customSubsElem.style.cssText = 'position: absolute; bottom: 20vh; left: 0; right: 0; color: white; font-size: 3vw; text-align: center; user-select: text; -moz-user-select: text; z-index: 100; pointer-events: none';
@@ -426,7 +359,6 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
               const cueElem = document.createElement('div');
               cueElem.style.cssText = 'background: rgba(0,0,0,0.8); white-space: pre-wrap; padding: 0.2em 0.3em; margin: 10px auto; width: fit-content; width: -moz-fit-content; pointer-events: auto';
               cueElem.innerHTML = vttTextToSimple(cue.text, true); // may contain simple tags like <i> etc.
-              customSubsElem.appendChild(cueElem);
             }
           }, false);
     
@@ -437,10 +369,7 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
           if (!playerElem) {
             throw new Error("Couldn't find player element to append subtitles to");
           }
-          playerElem.appendChild(customSubsElem);
-    
-          updateToggleDisplay();
-        }
+          }
     
         function removeTrackElem() {
           const trackElem = document.getElementById(TRACK_ELEM_ID);
@@ -453,7 +382,6 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
             customSubsElem.remove();
           }
     
-          disableDownloadButton();
         }
     
         // Determine what subs list should be
