@@ -10,8 +10,9 @@ Plug 'n Chug is a browser extension for Chrome that allows for fun and easy drin
 
 ## How to use
 
-First choose enter words you want to 'drink' and 'chug' on in the dropdown menu that can be accessed by clicking the extension icon. After entering the words, make sure you refresh the page at least once. You can reset your drinking game at any point by clicking the 'reset words' button and entering a new set of words
-(photo)
+First type and click enter for words you want to 'drink' and 'chug' on in the dropdown menu that can be accessed by clicking the extension icon. After entering the words, make sure you refresh the page once before playing your video. You can reset your drinking game at any point by clicking the 'reset words' button and entering a new set of words.
+![how to use](img3.png)
 
 ## Plug 'n Chug in action
-(photo)
+![drink example](img1.png)
+![drink example](img2.png)
