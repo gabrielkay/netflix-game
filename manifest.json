@@ -1,10 +1,10 @@
  {
   "manifest_version": 2,
-  "name": "Subadub",
-  "description" : "Enhanced Netflix subtitles for foreign language study",
-  "version": "0.1.7",
+  "name": "Plug 'n Chug",
+  "description" : "Netflix drinking games made easy",
+  "version": "0.1.1",
   "browser_action": {
-      "default_icon": "icon.png",
+      "default_icon": "icon128.png",
       "default_popup": "popup.html"
   },
   "permissions": [
