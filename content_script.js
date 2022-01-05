@@ -1,6 +1,3 @@
-
-// console.log('content script starting');
-
 const styleElem = document.createElement('style');
 styleElem.type = 'text/css';
 styleElem.textContent = `
@@ -15,10 +12,10 @@ var chug = [];
 
 chrome.storage.sync.get(["drink_storage"], function(result) {
   drink = result["drink_storage"];
-  console.log(drink)
+  //console.log(drink)
   chrome.storage.sync.get(["chug_storage"], function(result){
     chug = result["chug_storage"];
-    console.log(chug)
+    //console.log(chug)
 
     scriptElem.text = `
     (function initializeSubadub() {
@@ -95,8 +92,6 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
       function drink_func(text) {
         var drink = ['${drink.join("','")}'];
         var chug = ['${chug.join("','")}'];
-        console.log("drink in code: " + drink);
-        console.log("chug in code: " + chug);
         
         // only drink if there wasn't a chug in the same frame
         var chugged = false;
@@ -108,7 +103,7 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
             // Previously had issue where empty array would drink/chug every time.
             if (word.length > 1) {
               chugged = true;
-              console.log("CHUG: " + word);
+              //console.log("CHUG: " + word);
               var drink_banner = document.createElement("div");
               var drink_text = document.createElement("div");
               drink_text.innerHTML = word.toUpperCase() + " - CHUG!";
@@ -134,7 +129,7 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
               word = drink.find(e => text.toLowerCase().includes(e.toLowerCase()));
               // Previously had issue where empty array would drink/chug every time.
               if (word.length > 1) {
-                console.log("DRINK: " + word);
+                //console.log("DRINK: " + word);
                 var drink_banner = document.createElement("div");
                 var drink_text = document.createElement("div");
                 drink_text.innerHTML = word.toUpperCase() + "!";
@@ -374,10 +369,8 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
             }
           }, false);
     
-          // Appending this to the player rather than the document fixes some issues:
-          // 1) Clicking on subtitle text doesn't take focus (keyboard events) away from player
-          // 2) Hover on subtitle prevents the "sleep" title screen from coming up, which is nice
-          const playerElem = document.querySelector('.NFPlayer');
+          // Appending this to the player rather than the document changes details of behavior.
+          const playerElem = document.querySelector('.watch-video');
           if (!playerElem) {
             throw new Error("Couldn't find player element to append subtitles to");
           }
@@ -489,9 +482,9 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
       // Poll periodically to see if current movie has changed
       setInterval(function() {
         let videoId;
-        const videoContainerElem = document.querySelector('.VideoContainer');
-        if (videoContainerElem) {
-          const dsetIdStr = videoContainerElem.dataset.videoid;
+        const videoIdElem = document.querySelector('*[data-videoid]');
+        if (videoIdElem) {
+          const dsetIdStr = videoIdElem.dataset.videoid;
           if (dsetIdStr) {
             videoId = +dsetIdStr;
           }
@@ -564,33 +557,3 @@ chrome.storage.sync.get(["drink_storage"], function(result) {
 
 
 });
-
-
-// have to get from storage here, then assign big string, then do it all before it is loaded once.
-
-// chrome.storage.onChanged.addListener(function(changes, namespace) {
-//   for (var key in changes) {
-//     var storageChange = changes[key];
-//     if (key == "drink_storage"){
-//       drink = storageChange.newValue;
-//       //console.log("drink_storage = " + drink);
-//     }
-//     if (key == "chug_storage"){
-//       chug = storageChange.newValue;
-//       console.log("chug_storage = " + chug);
-//     }
-//     console.log('Storage key "%s" in namespace "%s" changed. ' +
-//                 'Old value was "%s", new value is "%s".',
-//                 key,
-//                 namespace,
-//                 storageChange.oldValue,
-//                 storageChange.newValue);
-//     // drink = storageChange.newValue;
-//     // console.log(drink);
-//   }
-// });
-
-// HERE
-
-
-// console.log('content script finished');
