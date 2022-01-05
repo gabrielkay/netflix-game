@@ -1,30 +1,3 @@
-
-
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     var checkPageButton = document.getElementById('checkPage');
-//     checkPageButton.addEventListener('click', function () {
-
-//         chrome.tabs.getSelected(null, function (tab) {
-//             d = document;
-//             var f = d.createElement('form');
-//             // f.action = 'google.com';
-//             // f.method = 'post';
-//             var i = d.createElement('input');
-//             i.type = 'hidden';
-//             i.name = 'url';
-//             i.value = tab.url;
-//             f.appendChild(i);
-//             d.body.appendChild(f);
-//             f.submit();
-//         });
-//     }, false);
-// }, false);
-
-
-
-//js for our html
-
 var drink = [];
 var chug = [];
 
@@ -39,27 +12,6 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
                 storageChange.newValue);
   }
 });
-
-// chrome.storage.onChanged.addListener(function(changes, namespace) {
-//     for (var key in changes) {
-//       var storageChange = changes[key];
-//       if (key == "drink_storage") {
-//         drink = storageChange.newValue;
-//       }
-//       if (key == "chug_storage"){
-//         chug = storageChange.newValue;
-//       }
-//       document.getElementById("drink_on").innerHTML = "Drink on: " + drink;
-//       document.getElementById("chug_on").innerHTML = "Chug on: " + chug;
-//       console.log('Storage key "%s" in namespace "%s" changed. ' +
-//                   'Old value was "%s", new value is "%s".',
-//                   key,
-//                   namespace,
-//                   storageChange.oldValue,
-//                   storageChange.newValue);
-//       drink = storageChange.newValue;
-//     }
-//   });
 
 function newWord(){
     var x = document.getElementById("word").value;

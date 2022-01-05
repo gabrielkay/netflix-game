@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Plug 'n Chug",
   "description" : "Netflix drinking games made easy",
-  "version": "0.1.1",
+  "version": "0.0.1",
   "browser_action": {
       "default_icon": "icon128.png",
       "default_popup": "popup.html"
@@ -22,6 +22,5 @@
       "run_at": "document_end",
       "js": ["content_script.js"]
     }
-  ],
-  "web_accessible_resources": ["chug_gif.gif"]
+  ]
  }
